@@ -1,0 +1,8 @@
+# Käännetyt ohjelmat
+labyrintti
+
+# Muut väliaikatiedostot
+*.o
+*.exe
+*.out
+
