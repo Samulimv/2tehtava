@@ -8,6 +8,11 @@
 /* Lisäohjeita, vinkkejä ja apuja löytyy koodin joukosta */
 /* OPISKELIJA: merkityt kohdat eritoten kannattaa katsoa huolella */
 
+/*-----------Tehty-------------*/
+//Toimiva rinnakainen prosessitoteutus 2p
+//Toimiva rinnakainen säietoteutus 2p
+
+
 //peruskirjastot mitä tarvii aika lailla aina kehitystyössä
 //OPISKELIJA: lisää tarvitsemasi peruskirjastot
 #include <iostream>
