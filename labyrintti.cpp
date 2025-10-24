@@ -41,10 +41,12 @@ using namespace std;
 //definet voi jättää globaalille alueelle, ne on sitten tiedossa koko tiedostossa
 //#define KORKEUS 100 //rivien määrä alla
 //#define LEVEYS 100 //sarakkaiden määrä alla
-int (*labyrintti)[LEVEYS];
 //apuja: voit testata ratkaisujasi myös alla olevalla yksinkertaisemmalla labyrintilla 
 #define KORKEUS 7
 #define LEVEYS 7
+
+int (*labyrintti)[LEVEYS];
+
 int alkupLabyrintti[KORKEUS][LEVEYS] = {
                         {1,1,1,1,1,1,1},
                         {1,0,1,0,1,0,4},
@@ -409,14 +411,14 @@ int aloitaRotta(){
     //OPISKELIJA: voisit muuttaa paluuarvon rakenteeksi jossa olisi liikkujen määrän lisäksi myös oikea reitti eli jäljelle jäänyt risteyspino, pystyt sitten käyttämään sitä prosesseissa tai säikeissä
     return liikkuCount;
 }
-
+//säietoteutusfunktio
 void* säieToteutus(void* arg) {
     cout << "Säie " << pthread_self() << " aloittaa!\n";
     aloitaRotta();
     cout << "Säie " << pthread_self() << " valmis!\n";
     pthread_exit(nullptr);
 }
-
+//prosessitoteutusfunktio
 void prosessiToteutus(int maara) {
     vector<pid_t> prosessit(maara);
     for (int i = 0; i < maara; i++) {
@@ -435,7 +437,6 @@ void prosessiToteutus(int maara) {
         }
     }
 
-    // Odotetaan kaikkia prosesseja
     for (pid_t pid : prosessit) {
         waitpid(pid, nullptr, 0);
     }
@@ -448,7 +449,7 @@ int main() {
     string tila;
     int maara;
 
-    // Kysytään käyttäjältä ajotapa ja rottien määrä
+    //kysytään käyttäjältä ajotapa ja rottien määrä
     cout << "Valitse ajotapa (p = prosessit, s = säikeet): ";
     cin >> tila;
 
@@ -466,7 +467,7 @@ int main() {
         cin >> maara;
     }
 
-    // Luodaan jaettu muisti labyrintille
+    //luodaan jaettu muisti labyrintille
     size_t jaettuMuisti = sizeof(int) * KORKEUS * LEVEYS;
     int shm_id = shmget(IPC_PRIVATE, jaettuMuisti, S_IRUSR | S_IWUSR);
     if (shm_id == -1) { perror("shmget"); return 1; }
